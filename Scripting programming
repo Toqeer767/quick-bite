@@ -1,0 +1,74 @@
+# WELCOME TO QUICKBITE RESTURANT
+menu = {
+    "BonelessChicken": (20.99, "tenders, full boneless breasts, Bit spicy"),
+    "TikaMasala": (25.50, "chili flakes, green chilies, tomato-heavy sauce and reduced amount of heat"),
+    "LambKarai": (18.50, "Spice Medium, Light garam masala, turmeric and cumin"),
+    "Salad": (4.50, "Fresh salad with dressing"),
+    "Soda": (1.99, "Chilled soft drink")
+}
+
+# Initialize an empty list to store the order
+order = []
+
+def display_menu():
+    """Display the menu items with prices and descriptions."""
+    print("\nQuickBite Menu:")
+    for item, (price, description) in menu.items():
+        print(f"{item}: ${price:.2f} - {description}")
+
+
+def add_to_order():
+    """Allow the user to select items from the menu and add them to their order."""
+    item = input("\nEnter the name of the item you want to order (or type 'done' to finish): ")
+    if item.lower() == 'done':
+        return False
+
+    if item in menu:
+        quantity = int(input(f"Enter the quantity of {item}: "))
+        price = menu[item][0]
+        order.append((item, quantity, price * quantity))
+        print(f"{quantity} x {item} added to your order.")
+    else:
+        print("Item not found. Please try again.")
+    return True
+
+def view_order():
+    """Display the current order with items, quantities, and total cost."""
+    if not order:
+        print("\nYour order is currently empty.")
+        return
+
+    print("\nOrder Summary:")
+    total_cost = 0
+    for item, quantity, cost in order:
+        print(f"{quantity} x {item}: ${cost:.2f}")
+        total_cost += cost
+    print(f"Total Cost: ${total_cost:.2f}")
+
+def main():
+    """Main function to run the ordering system."""
+    print("Welcome to QuickBite Food Ordering System!")
+    while True:
+        print("\nPlease choose an option:")
+        print("1. Browse Menu")
+        print("2. Place Order")
+        print("3. View Order Summary")
+        print("4. Exit")
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            display_menu()
+        elif choice == '2':
+            while add_to_order():
+                pass
+        elif choice == '3':
+            view_order()
+        elif choice == '4':
+            print("Thank you for visiting QuickBite! Enjoy your meal!")
+            break
+        else:
+            print("Invalid choice, please try again.")
+
+# Run the program
+if __name__ == "__main__":
+    main()
